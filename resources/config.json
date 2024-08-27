@@ -1,10 +1,11 @@
 {
-  "providers": {
-    "granit": {
+  "providers": [
+    {
+      "name": "",
       "type": "",
       "url": "",
       "email": "",
       "token": ""
     }
-  }
+  ]
 }

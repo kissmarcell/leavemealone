@@ -1,10 +1,13 @@
 import json
+from dataclasses import dataclass
 from typing import List
 
 from flask import current_app
 
 
+@dataclass
 class ProviderConfiguration:
+    name: str
     type: str
     url: str
     email: str
