@@ -9,5 +9,6 @@ from src.enums.provider_type import ProviderType
 class ProviderConfiguration:
     type: ProviderType
     email: Optional[str]
+    organization: Optional[str]
     token: str
     workspaces: list[Workspace]

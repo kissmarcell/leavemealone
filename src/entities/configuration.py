@@ -23,7 +23,6 @@ class Configuration:
             config = json.load(f)
             return Configuration._create_from_dict(config)
 
-
     @staticmethod
     def _create_from_dict(configuration_dict: dict):
         return from_dict(

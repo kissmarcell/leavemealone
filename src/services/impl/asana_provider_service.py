@@ -7,7 +7,7 @@ from src.services.provider_service import ProviderService
 
 
 class AsanaProviderService(ProviderService):
-    ASANA_API_PATH = 'https://app.asana.com/api/1.0/'
+    API_PATH = 'https://app.asana.com/api/1.0/'
 
     @staticmethod
     def get_issues_assigned_to_me(provider_config) -> list[WorkspaceWithIssues]:
@@ -15,8 +15,8 @@ class AsanaProviderService(ProviderService):
         for workspace in provider_config.workspaces:
             workspace_response = AsanaProviderService._make_request(
                 AsanaApiActionType.TASKS,
-                headers = {"Authorization": f"Bearer {provider_config.token}"},
-                params = {'assignee': 'me', 'workspace': workspace.id})
+                headers={"Authorization": f"Bearer {provider_config.token}"},
+                params={'assignee': 'me', 'workspace': workspace.id})
             response.append(WorkspaceWithIssues(
                 name=workspace.name,
                 issues=AsanaProviderService._dict_to_issues(workspace_response)
@@ -26,7 +26,7 @@ class AsanaProviderService(ProviderService):
     @staticmethod
     def _make_request(action: AsanaApiActionType, headers: dict = None, params: dict = None):
         return requests.get(
-            AsanaProviderService.ASANA_API_PATH + action.value,
+            AsanaProviderService.API_PATH + action.value,
             headers=headers,
             params=params).json()
 

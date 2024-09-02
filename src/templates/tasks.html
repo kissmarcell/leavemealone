@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tasks</title>
+  </head>
+  <body>
+    <h1>Tasks</h1>
+    <ul>
+      {% for workspace in workspaces %}
+        <li>{{ workspace.name }}
+        <ul>
+        {% for issue in workspace.issues %}
+          <li>{{ issue.name }} - <a href="{{ issue.url }}">Link to issue</a></li>
+        {% endfor %}
+        </ul></li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

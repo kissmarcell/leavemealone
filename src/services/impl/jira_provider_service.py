@@ -11,15 +11,15 @@ from src.services.provider_service import ProviderService
 
 
 class JiraProviderService(ProviderService):
-    JIRA_API_PATH = 'https://{}.atlassian.net/rest/api/3/'
+    API_PATH = 'https://{}.atlassian.net/rest/api/3/'
     QUERY_HEADERS = {'Accept': 'application/json'}
     QUERY_PARAMS = {'jql': 'assignee=currentUser()'}
 
     @staticmethod
-    def get_issues_assigned_to_me(provider_config) -> List[WorkspaceWithIssues]:
+    def get_issues_assigned_to_me(provider_config) -> list[WorkspaceWithIssues]:
         response = []
         for workspace in provider_config.workspaces:
-            workspace_response =  JiraProviderService._make_request(
+            workspace_response = JiraProviderService._make_request(
                 provider_config,
                 workspace,
                 JiraApiActionType.SEARCH,
@@ -32,9 +32,10 @@ class JiraProviderService(ProviderService):
         return response
 
     @staticmethod
-    def _make_request(provider_config: ProviderConfiguration, workspace: Workspace, action: JiraApiActionType, headers: dict = None, params: dict = None):
+    def _make_request(provider_config: ProviderConfiguration, workspace: Workspace, action: JiraApiActionType,
+                      headers: dict = None, params: dict = None):
         return requests.get(
-            JiraProviderService.JIRA_API_PATH.format(workspace.id) + action.value,
+            JiraProviderService.API_PATH.format(workspace.id) + action.value,
             auth=(provider_config.email, provider_config.token),
             headers=headers,
             params=params).json()
