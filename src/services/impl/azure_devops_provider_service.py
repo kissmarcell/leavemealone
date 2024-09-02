@@ -13,6 +13,7 @@ from src.services.provider_service import ProviderService
 
 class AzureDevopsProviderService(ProviderService):
     API_PATH = 'https://dev.azure.com/{organization}/{project}/_apis/wit/{action}'
+    WORK_ITEM_URL = "https://dev.azure.com/{organization}/{project}/_workitems/edit/{id}"
     WIQL_QUERY_PARAMS = {'api-version': '7.0'}
     WIQL_QUERY_DATA = {'query': 'SELECT [System.ID] FROM WorkItems WHERE [System.AssignedTo] = @Me'}
     WORK_ITEMS_FIELDS = ['System.State', 'System.Title']
@@ -31,7 +32,9 @@ class AzureDevopsProviderService(ProviderService):
                 params=AzureDevopsProviderService.WIQL_QUERY_PARAMS,
                 data=AzureDevopsProviderService.WIQL_QUERY_DATA)
             for work_item in ids_and_urls_response['workItems']:
-                workspace_issues.append(Issue(id=work_item["id"], url=work_item["url"], name='None'))
+                workspace_issues.append(Issue(id=work_item["id"], url=AzureDevopsProviderService.WORK_ITEM_URL.format(
+                    organization=provider_config.organization, project=workspace.id, id=work_item["id"]
+                ), name='None'))
             names_and_states_response = AzureDevopsProviderService._make_request(
                 AzureDevopsApiActionType.WORKITEMS,
                 RequestType.GET,

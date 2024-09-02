@@ -12,6 +12,7 @@ from src.services.provider_service import ProviderService
 
 class JiraProviderService(ProviderService):
     API_PATH = 'https://{}.atlassian.net/rest/api/3/'
+    WORK_ITEM_URL = "https://{workspace}.atlassian.net/browse/{id}"
     QUERY_HEADERS = {'Accept': 'application/json'}
     QUERY_PARAMS = {'jql': 'assignee=currentUser()'}
 
@@ -27,7 +28,7 @@ class JiraProviderService(ProviderService):
                 params=JiraProviderService.QUERY_PARAMS)
             response.append(WorkspaceWithIssues(
                 name=workspace.name,
-                issues=JiraProviderService._dict_to_issues(workspace_response)
+                issues=JiraProviderService._dict_to_issues(workspace_response, workspace)
             ))
         return response
 
@@ -41,9 +42,9 @@ class JiraProviderService(ProviderService):
             params=params).json()
 
     @staticmethod
-    def _dict_to_issues(data: dict) -> List[Issue]:
+    def _dict_to_issues(data: dict, workspace: Workspace) -> List[Issue]:
         return [Issue(
-            id=task['id'],
+            id=task['key'],
             name=task['key'],
-            url=task['self']
+            url=JiraProviderService.WORK_ITEM_URL.format(workspace=workspace.id, id=task['key'])
         ) for task in data['issues']]
