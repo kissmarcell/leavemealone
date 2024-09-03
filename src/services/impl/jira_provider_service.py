@@ -46,5 +46,6 @@ class JiraProviderService(ProviderService):
         return [Issue(
             id=task['key'],
             name=task['key'],
-            url=JiraProviderService.WORK_ITEM_URL.format(workspace=workspace.id, id=task['key'])
+            url=JiraProviderService.WORK_ITEM_URL.format(workspace=workspace.id, id=task['key']),
+            state=task['fields']['status']['name']
         ) for task in data['issues']]

@@ -6,3 +6,4 @@ class Issue:
     id: str
     name: str
     url: str
+    state: str

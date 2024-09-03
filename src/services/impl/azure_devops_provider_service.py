@@ -34,7 +34,7 @@ class AzureDevopsProviderService(ProviderService):
             for work_item in ids_and_urls_response['workItems']:
                 workspace_issues.append(Issue(id=work_item["id"], url=AzureDevopsProviderService.WORK_ITEM_URL.format(
                     organization=provider_config.organization, project=workspace.id, id=work_item["id"]
-                ), name='None'))
+                ), name='None', state=''))
             names_and_states_response = AzureDevopsProviderService._make_request(
                 AzureDevopsApiActionType.WORKITEMS,
                 RequestType.GET,

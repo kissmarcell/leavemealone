@@ -35,5 +35,6 @@ class AsanaProviderService(ProviderService):
         return [Issue(
             id=task['gid'],
             name=task['name'],
-            url=f"https://app.asana.com/0/{task['gid']}/{task['gid']}"
+            url=f"https://app.asana.com/0/{task['gid']}/{task['gid']}",
+            state=''
         ) for task in data['data']]
