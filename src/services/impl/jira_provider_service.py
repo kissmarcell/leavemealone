@@ -28,7 +28,8 @@ class JiraProviderService(ProviderService):
                 params=JiraProviderService.QUERY_PARAMS)
             response.append(WorkspaceWithIssues(
                 name=workspace.name,
-                issues=JiraProviderService._dict_to_issues(workspace_response, workspace)
+                issues=JiraProviderService._dict_to_issues(workspace_response, workspace),
+                provider=provider_config.type
             ))
         return response
 

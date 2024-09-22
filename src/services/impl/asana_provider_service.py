@@ -19,7 +19,8 @@ class AsanaProviderService(ProviderService):
                 params={'assignee': 'me', 'workspace': workspace.id})
             response.append(WorkspaceWithIssues(
                 name=workspace.name,
-                issues=AsanaProviderService._dict_to_issues(workspace_response)
+                issues=AsanaProviderService._dict_to_issues(workspace_response),
+                provider=provider_config.type
             ))
         return response
 

@@ -46,7 +46,7 @@ class AzureDevopsProviderService(ProviderService):
                     if work_item['id'] == issue.id:
                         issue.name = work_item['fields']['System.Title']
                         issue.state = work_item['fields']['System.State']
-            response.append(WorkspaceWithIssues(name=workspace.name, issues=workspace_issues))
+            response.append(WorkspaceWithIssues(name=workspace.name, issues=workspace_issues, provider=provider_config.type))
         return response
 
     @staticmethod
