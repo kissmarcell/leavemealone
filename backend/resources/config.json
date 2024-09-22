@@ -1,0 +1,15 @@
+{
+    "providers": [
+      {
+        "type": "",
+        "email": "",
+        "token": "",
+        "workspaces": [
+          {
+            "name": "",
+            "id": ""
+          }
+        ]
+      }
+    ]
+  }
