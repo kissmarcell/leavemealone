@@ -9,10 +9,13 @@ configuration = Configuration.create("resources/config.json")
 app.config["application"] = configuration
 CORS(app)
 
-
-@app.route('/projects')
+@app.route('/')
 def index():
     return IndexController.index()
+
+@app.route('/projects')
+def projects():
+    return IndexController.get_data()
 
 
 if __name__ == '__main__':

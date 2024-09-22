@@ -11,7 +11,7 @@ from src.services.provider_service import ProviderService
 
 class IndexController:
     @staticmethod
-    def index():
+    def get_data():
         workspaces: list[WorkspaceWithIssues] = []
         for provider in Configuration.get().providers:
             service: ProviderService
@@ -26,4 +26,9 @@ class IndexController:
                     raise Exception(f"Provider type {provider.type} is not supported")
 
             workspaces += service.get_issues_assigned_to_me(provider)
-        return render_template('tasks.html', workspaces=workspaces)
+        return workspaces
+
+    @staticmethod
+    def index():
+        workspaces = IndexController.get_data()
+        return render_template("tasks.html", workspaces=workspaces)
