@@ -15,6 +15,7 @@ class JiraProviderService(ProviderService):
     WORK_ITEM_URL = "https://{workspace}.atlassian.net/browse/{id}"
     QUERY_HEADERS = {'Accept': 'application/json'}
     QUERY_PARAMS = {'jql': 'assignee=currentUser()'}
+    TASK_NAME_FORMAT = '[{key}]{summary}'
 
     @staticmethod
     def get_issues_assigned_to_me(provider_config) -> list[WorkspaceWithIssues]:
@@ -46,7 +47,7 @@ class JiraProviderService(ProviderService):
     def _dict_to_issues(data: dict, workspace: Workspace) -> List[Issue]:
         return [Issue(
             id=task['key'],
-            name=task['key'],
+            name=JiraProviderService.TASK_NAME_FORMAT.format(key=task['key'], summary=task['fields']['summary']),
             url=JiraProviderService.WORK_ITEM_URL.format(workspace=workspace.id, id=task['key']),
             state=task['fields']['status']['name']
         ) for task in data['issues']]
