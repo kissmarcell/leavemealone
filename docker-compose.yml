@@ -1,0 +1,16 @@
+services:
+  backend:
+    build:
+      dockerfile: backend.Dockerfile
+    ports:
+      - 8080:5000
+    volumes:
+      - ./backend/resources:/usr/src/app/resources
+    restart: always
+
+  frontend:
+    build:
+      dockerfile: frontend.Dockerfile
+    ports:
+      - 7000:80
+    restart: always
