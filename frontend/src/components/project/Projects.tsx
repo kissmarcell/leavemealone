@@ -4,12 +4,16 @@ import { ProjectListRequest } from "@/types/project";
 import { useEffect, useState } from "react";
 
 const Projects = () => {
+
+  const fetchProjects = () => {
+    api
+      .fetchData<ProjectListRequest>("/projects")
+      .then((projects) => setProjects(projects));
+  }
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      api
-        .fetchData<ProjectListRequest>("/projects")
-        .then((projects) => setProjects(projects));
-    }, 5000);
+    fetchProjects();
+    const interval = setInterval(fetchProjects, 300000);
     return () => clearInterval(interval);
   }, []);
 
