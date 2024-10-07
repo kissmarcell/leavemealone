@@ -7,7 +7,7 @@ const Projects = () => {
 
   const fetchProjects = () => {
     api
-      .fetchData<ProjectListRequest>("/projects")
+      .fetch<ProjectListRequest>("/v1/projects")
       .then((projects) => setProjects(projects));
   }
 

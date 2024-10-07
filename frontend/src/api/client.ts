@@ -7,7 +7,7 @@ export class APIClient {
       this.baseURL = baseURL;
     }
   
-    async fetchData<T = object>(relativePath: string, options = {}): Promise<T> {
+    async fetch<T = object>(relativePath: string, options = {}): Promise<T> {
       const url = `${this.baseURL}${relativePath}`;
       try {
         const response = await fetch(url, options);
