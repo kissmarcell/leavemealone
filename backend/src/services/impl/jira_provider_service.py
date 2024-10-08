@@ -49,5 +49,5 @@ class JiraProviderService(ProviderService):
             id=task['key'],
             name=JiraProviderService.TASK_NAME_FORMAT.format(key=task['key'], summary=task['fields']['summary']),
             url=JiraProviderService.WORK_ITEM_URL.format(workspace=workspace.id, id=task['key']),
-            state=task['fields']['status']['name']
+            tags=[task['fields']['status']['name']]
         ) for task in data['issues']]

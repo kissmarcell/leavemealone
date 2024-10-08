@@ -16,7 +16,7 @@ class AsanaProviderService(ProviderService):
             workspace_response = AsanaProviderService._make_request(
                 AsanaApiActionType.TASKS,
                 headers={"Authorization": f"Bearer {provider_config.token}"},
-                params={'assignee': 'me', 'workspace': workspace.id})
+                params={'assignee': 'me', 'workspace': workspace.id, 'opt_fields': 'tags.name,name'})
             response.append(WorkspaceWithIssues(
                 name=workspace.name,
                 issues=AsanaProviderService._dict_to_issues(workspace_response),
@@ -37,5 +37,5 @@ class AsanaProviderService(ProviderService):
             id=task['gid'],
             name=task['name'],
             url=f"https://app.asana.com/0/{task['gid']}/{task['gid']}",
-            state=''
+            tags=[tag["name"] for tag in task['tags']]
         ) for task in data['data']]

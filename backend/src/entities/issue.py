@@ -6,4 +6,4 @@ class Issue:
     id: str
     name: str
     url: str
-    state: str
+    tags: list[str]

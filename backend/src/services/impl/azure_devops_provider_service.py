@@ -34,7 +34,7 @@ class AzureDevopsProviderService(ProviderService):
             for work_item in ids_and_urls_response['workItems']:
                 workspace_issues.append(Issue(id=work_item["id"], url=AzureDevopsProviderService.WORK_ITEM_URL.format(
                     organization=provider_config.organization, project=workspace.id, id=work_item["id"]
-                ), name='None', state=''))
+                ), name='None', tags=[]))
             names_and_states_response = AzureDevopsProviderService._make_request(
                 AzureDevopsApiActionType.WORKITEMS,
                 RequestType.GET,
@@ -45,7 +45,7 @@ class AzureDevopsProviderService(ProviderService):
                 for work_item in names_and_states_response['value']:
                     if work_item['id'] == issue.id:
                         issue.name = work_item['fields']['System.Title']
-                        issue.state = work_item['fields']['System.State']
+                        issue.tags = [work_item['fields']['System.State']]
             response.append(WorkspaceWithIssues(name=workspace.name, issues=workspace_issues, provider=provider_config.type))
         return response
 

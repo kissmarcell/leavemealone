@@ -5,7 +5,7 @@ export type ProjectListRequest = ProjectType[]
 export type IssueType = {
     id: number,
     name: string,
-    state: string,
+    tags: string[],
     url: string,
 }
 

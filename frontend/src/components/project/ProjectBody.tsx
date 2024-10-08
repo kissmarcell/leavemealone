@@ -11,7 +11,7 @@ const ProjectBody = (props: ProjectBodyProps) => {
     <div style={styles.backdropContainer}>
       <div style={styles.container}>
         {props.issues.map((issue) => (
-          <Task name={issue.name} link={issue.url} status={issue.state} />
+          <Task name={issue.name} link={issue.url} tags={issue.tags} />
         ))}
       </div>
     </div>

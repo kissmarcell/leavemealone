@@ -1,39 +1,41 @@
-import Colors from "@/constants/Colors";
-import { isLight } from "@/helpers/color";
-import stc from "string-to-color";
+import Tag from "@/components/project/Tag";
 
 type TaskProps = {
-    name: string;
-    link: string;
-    status?: string;
+  name: string;
+  link: string;
+  tags?: string[];
 };
 
 const Task = (props: TaskProps) => {
-    const bgColor = stc(props.status);
-    const fontColor = isLight(bgColor) ? Colors.black : Colors.white;
-
   return (
     <div style={styles.container}>
-      <a href={props.link} target="_blank">{props.name}</a>
-      { props.status && <div style={{...styles.status, backgroundColor: bgColor, color: fontColor}}>{props.status}</div>}
+      <a href={props.link} target="_blank">
+        {props.name}
+      </a>
+      {props.tags && (
+        <div style={styles.tagContainer}>
+          {props.tags.map((tag) => (
+            <Tag name={tag} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
 
 const styles = {
-    container: {
-        display: "flex",
-        justifyContent: "space-between",
-        fontWeight: 550,
-        fontSize: 20,
-        TextDecoration: "none",
-        alignItems: "center",
-    },
-    status: {
-        fontSize: 15,
-        padding: "5px 15px",
-        borderRadius: 30,
-    }
+  container: {
+    display: "flex",
+    justifyContent: "space-between",
+    fontWeight: 550,
+    fontSize: 20,
+    TextDecoration: "none",
+    alignItems: "center",
+  },
+  tagContainer: {
+    display: "flex",
+    gap: 10,
+  },
 } as const;
 
 export default Task;

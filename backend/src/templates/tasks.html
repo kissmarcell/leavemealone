@@ -10,7 +10,7 @@
         <li>{{ workspace.name }}
         <ul>
         {% for issue in workspace.issues %}
-          <li>{{ issue.name }} - {{ issue.state }} - <a href="{{ issue.url }}">Link</a></li>
+          <li>{{ issue.name }} - {{ issue.tags }} - <a href="{{ issue.url }}">Link</a></li>
         {% endfor %}
         </ul></li>
       {% endfor %}
