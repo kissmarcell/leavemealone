@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM python:3.12-alpine
 
 WORKDIR /usr/src/app
 VOLUME /usr/src/app/resources
